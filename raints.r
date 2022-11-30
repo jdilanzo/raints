@@ -52,7 +52,8 @@ smooth.sym <- function(my.ts, window.q) {
 
 # Spencer's 15-point moving average.
 smooth.spencer <- function(my.ts) {
-  weight <- c(-3, -6, -5, 3, 21, 46, 67, 74, 67, 46, 21, 3, -5, -6, -3) /
+  weight <-
+    c(-3, -6, -5, 3, 21, 46, 67, 74, 67, 46, 21, 3, -5, -6, -3) /
     320
   my.ts.sm <- rep(0 , length(my.ts) - 15)
   for (i in 1:length(my.ts.sm)) {
@@ -485,10 +486,12 @@ acf(
 )
 title(xlab = "Lag", ylab = "Partial ACF", line = 2)
 
-# Evaluate the smoothed time series using Spencer's 15-point moving average for Albany (009500).
+# Evaluate the smoothed time series using Spencer's 15-point moving average for
+# Albany (009500).
 rainfall.albany.weekly.spencer <-
   smooth.spencer(rainfall.albany.weekly$rainfall)
-# Plot smoothed time series using Spencer's 15-point moving average, acf, pacf for Albany (009500).
+# Plot smoothed time series using Spencer's 15-point moving average, acf, pacf
+# for Albany (009500).
 plot(
   rainfall.albany.weekly.spencer,
   type = "l",
@@ -607,10 +610,12 @@ acf(
 )
 title(xlab = "Lag", ylab = "Partial ACF", line = 2)
 
-# Evaluate the smoothed time series using Spencer's 15-point moving average for Cape Naturaliste (009519).
+# Evaluate the smoothed time series using Spencer's 15-point moving average for
+# Cape Naturaliste (009519).
 rainfall.capenaturaliste.weekly.spencer <-
   smooth.spencer(rainfall.capenaturaliste.weekly$rainfall)
-# Plot smoothed time series using Spencer's 15-point moving average, acf, pacf for Cape Naturaliste (009519).
+# Plot smoothed time series using Spencer's 15-point moving average, acf, pacf
+# for Cape Naturaliste (009519).
 plot(
   rainfall.capenaturaliste.weekly.spencer,
   type = "l",
@@ -788,15 +793,16 @@ plot(rainfall.capenaturaliste.weekly.diff.de, mar = c(0, 4, 0, 4))
 
 #~~~~~ Stationarity ~~~~~#
 
-# Perform augmented Dickey-Fuller (ADF) tests to determine stationarity. The null hypothesis is that the time
-# series is non-stationary. So, we will be looking for p-values < 0.05 (or other sig. level).
+# Perform augmented Dickey-Fuller (ADF) tests to determine stationarity. The null
+# hypothesis is that the time series is non-stationary. So, we will be looking for
+# p-values < 0.05 (or other sig. level).
 adf.test(rainfall.albany.weekly$rainfall,
          alternative = "stationary")
 adf.test(rainfall.capenaturaliste.weekly$rainfall,
          alternative = "stationary")
 
-# Perform augmented Dickey-Fuller (ADF) tests to determine stationarity of the differenced series. The null
-# hypothesis is that the time series is non-stationary.
+# Perform augmented Dickey-Fuller (ADF) tests to determine stationarity of the
+# differenced series. The null hypothesis is that the time series is non-stationary.
 adf.test(rainfall.albany.weekly.diff,
          alternative = "stationary")
 adf.test(rainfall.capenaturaliste.weekly.diff,
@@ -826,7 +832,8 @@ rainfall.albany.weekly.model <-
 rainfall.albany.weekly.model
 
 
-# Attempt to fit a SARIMA model using aggregated data for Cape Naturaliste (009519).
+# Attempt to fit a SARIMA model using aggregated data for Cape Naturaliste
+# (009519).
 rainfall.capenaturaliste.weekly.model <-
   auto.arima(
     ts(rainfall.capenaturaliste.weekly$rainfall, frequency = 365.25 / 7),
@@ -858,8 +865,8 @@ par(
   mfrow = c(3, 1),
   mar = c(3, 4, 3, 4)
 )
-# Compute standardised residuals, sample acf of residuals, and p-values for Ljung-Box statistic for fitted
-# model using aggregated data for Albany (009500).
+# Compute standardised residuals, sample acf of residuals, and p-values for
+# Ljung-Box statistic for fitted model using aggregated data for Albany (009500).
 tsdiag(rainfall.albany.weekly.model)
 
 par(
@@ -872,7 +879,8 @@ par(
   mfrow = c(2, 1),
   mar = c(3, 4, 3, 4)
 )
-# Check the normality of residuals for fitted model using aggregated data for Albany (009500).
+# Check the normality of residuals for fitted model using aggregated data for
+# Albany (009500).
 normal.qqplot(rainfall.albany.weekly.model$residuals)
 title(
   main = "Residual Analysis for Albany (009500)",
@@ -901,8 +909,9 @@ par(
   mfrow = c(3, 1),
   mar = c(3, 4, 3, 4)
 )
-# Compute standardised residuals, sample acf of residuals, and p-values for Ljung-Box statistic for fitted
-# model using aggregated data for Cape Naturaliste (009519).
+# Compute standardised residuals, sample acf of residuals, and p-values for
+# Ljung-Box statistic for fitted model using aggregated data for Cape Naturaliste
+# (009519).
 tsdiag(rainfall.capenaturaliste.weekly.model)
 
 par(
@@ -915,7 +924,8 @@ par(
   mfrow = c(2, 1),
   mar = c(3, 4, 3, 4)
 )
-# Check the normality of residuals for fitted model using aggregated data for Cape Naturaliste (009519).
+# Check the normality of residuals for fitted model using aggregated data for
+# Cape Naturaliste (009519).
 normal.qqplot(rainfall.capenaturaliste.weekly.model$residuals)
 title(
   main = "Residual Analysis for Cape Naturaliste (009519)",
@@ -934,7 +944,8 @@ box()
 title(xlab = "Residuals", ylab = "Frequency", line = 2)
 
 
-# Perform a formal Ljung-Box test on residuals for each fitted model to assess the suuitability of the fit.
+# Perform a formal Ljung-Box test on residuals for each fitted model to assess
+# the suitability of the fit.
 Box.test(
   rainfall.albany.weekly.model$residuals,
   lag = 365.25 / 7,
