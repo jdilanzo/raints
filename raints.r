@@ -5,16 +5,19 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # Install and load necessary add-on packages.
 if (!require(forecast)) {
   install.packages("forecast")
+  library(forecast)
 } else {
   library(forecast)
 }
 if (!require(tidyverse)) {
   install.packages("tidyverse")
+  library(tidyverse)
 } else {
   library(tidyverse)
 }
 if (!require(tseries)) {
   install.packages("tseries")
+  library(tseries)
 } else {
   library(tseries)
 }
